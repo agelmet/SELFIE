@@ -537,6 +537,64 @@ ul[data-hloc]:not([hidden]),.dirs[data-hloc]:not([hidden]),.ft [data-hloc]:not([
 .rloc{display:block;font-size:12px;font-weight:500;opacity:.75;margin-top:2px}
 .rev-ctrl .lnks{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
 .h3{font-size:clamp(22px,1.46vw,28px);font-weight:700}
+
+/* ===== NO CROPPING anywhere (Angelo, 5 Oct 2026): every photo shown whole ===== */
+/* hero slider: frame = 16:9 (the main photo's own ratio); other slides sit whole on the dark ground */
+.hero{height:auto;aspect-ratio:1400/786;background:var(--dark)}
+.slide picture,.slide img{width:100%;height:100%;object-fit:contain}
+.slide img{transform:none!important;transition:none}
+.hero::after{background:linear-gradient(180deg,rgba(16,34,34,.10),rgba(16,34,34,0) 40%,rgba(16,34,34,.18))}
+@media (max-width:760px){
+ .hero{aspect-ratio:auto;height:auto;display:flex;flex-direction:column}
+ .hero .frame{position:relative;width:100%;aspect-ratio:1400/786;background:var(--dark)}
+ .hero-card{position:relative;left:auto;bottom:auto;width:100%;border-radius:0}
+ .hero::after{display:none}
+}
+@media (min-width:761px){.hero .frame{position:absolute;inset:0}}
+/* inner-page banners: title panel + the whole photo side by side */
+.banner{height:auto;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:stretch;background:var(--dark);isolation:auto}
+.banner::before{display:none}
+.banner picture{grid-column:2;grid-row:1;display:block;line-height:0}
+.banner img{position:static;width:100%;height:auto;object-fit:initial;z-index:auto;top:auto}
+.banner>h1,.banner>.logo-big{grid-column:1;grid-row:1;align-self:center;justify-self:center;padding:40px clamp(20px,3vw,60px)}
+.banner h1{text-shadow:none}
+@media (max-width:760px){.banner{grid-template-columns:1fr}.banner picture{grid-column:1;grid-row:1}.banner>h1,.banner>.logo-big{grid-column:1;grid-row:2;padding:26px 20px 30px}}
+/* CTA band: the whole photo with the text over it */
+.cta{height:auto;display:grid;max-width:min(1100px,calc(100% - 2 * clamp(14px,1.56vw,30px)));margin-inline:auto;border-radius:var(--rl);margin-bottom:clamp(40px,3vw,60px)}
+.cta .bg{position:relative;inset:auto;grid-area:1/1;z-index:-2;line-height:0}
+.cta .bg img{width:100%;height:auto;object-fit:initial}
+.cta::before{border-radius:inherit}
+.cta>h2,.cta>.btn{grid-area:1/1;align-self:center;justify-self:center}
+.cta>h2{transform:translateY(-34px)}
+.cta>.btn{transform:translateY(46px);margin:0}
+@media (max-width:620px){.cta>h2{font-size:26px;transform:translateY(-26px)}.cta>.btn{transform:translateY(36px)}}
+/* no hover-zoom inside frames (it hides the edges of the photo) — lift the card instead */
+@media (hover:hover){
+ .pgrid figure:hover img,.scard:hover img,.svc:hover .ph img,.jrow figure:hover img,.mason figure:hover img,.pcard:hover .ph img{transform:none}
+ .pgrid figure,.jrow figure,.mason figure{transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+ .pgrid figure:hover,.jrow figure:hover,.mason figure:hover{transform:translateY(-4px);box-shadow:var(--sh-2)}
+ .scard:hover{transform:translateY(-4px)}
+}
+
+@media (max-width:760px){.hero{height:auto}.hero .arr{top:50%;margin-top:-17px}.dots{top:auto;bottom:10px}.hero-card{border-radius:0;padding:24px 20px 28px}}
+
+/* hero: headline card beside the WHOLE photo — nothing covers or crops it */
+@media (min-width:761px){
+ .hero{aspect-ratio:auto;height:auto;display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);align-items:center;gap:clamp(20px,2.4vw,46px);background:var(--bg);padding:clamp(14px,1.56vw,30px) clamp(14px,1.56vw,30px) 0;overflow:visible}
+ .hero::after{display:none}
+ .hero .frame{position:relative;inset:auto;grid-column:2;grid-row:1;aspect-ratio:1400/786;border-radius:var(--rl);overflow:hidden;background:var(--dark);box-shadow:var(--sh-3)}
+ .hero-card{position:relative;left:auto;bottom:auto;width:auto;grid-column:1;grid-row:1;background:transparent;padding:0 0 0 clamp(6px,3.6vw,70px)}
+ .hero-card h1{font-size:clamp(40px,4.4vw,84px)}
+ .hero .arr.l{left:16px}.hero .arr.r{right:16px}
+ .dots{right:22px;bottom:18px}
+}
+
+/* service cards: every photo in the same 3:2 frame, shown WHOLE (portraits sit on a soft mat) so the cards stay level */
+.svc .ph{aspect-ratio:3/2;background:linear-gradient(135deg,#F5ECDD,#EFE2CC);display:flex;align-items:center;justify-content:center}
+.svc .ph img{width:100%;height:100%;object-fit:contain}
+
+.svc-grid .svc{display:flex;flex-direction:column}
+.svc-grid .svc p{flex:1}
 </style>
 <script>document.documentElement.className+=' js'</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "HairSalon", "name": "Selfie Hair Inspirations", "alternateName": "Selfie Hair Glyfada", "image": "https://selfiehairinspirations.gr/assets/img/hero-salon-team.webp", "url": "https://selfiehairinspirations.gr/", "telephone": "+30 210 898 3331", "email": "info@selfiehairinspirations.gr", "address": {"@type": "PostalAddress", "streetAddress": "Λεωφ. Δημάρχου Αγγέλου Μεταξά 39", "addressLocality": "Γλυφάδα", "postalCode": "16674", "addressRegion": "Αττική", "addressCountry": "GR"}, "geo": {"@type": "GeoCoordinates", "latitude": 37.8601465, "longitude": 23.7544975}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday", "Thursday", "Friday"], "opens": "09:00", "closes": "20:30"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Wednesday", "Saturday"], "opens": "09:00", "closes": "18:00"}], "founder": {"@type": "Person", "name": "Βασίλειος Ποσνακίδης", "alternateName": "Vasileios Posnakidis", "jobTitle": "Κομμωτής"}, "areaServed": ["Γλυφάδα", "Βούλα", "Άνω Γλυφάδα", "Ελληνικό", "Άλιμος", "Βάρη"], "priceRange": "€€", "sameAs": ["https://www.facebook.com/selfiehairinspirations/", "https://www.instagram.com/selfie_hair_inspirations/", "https://www.treatwell.gr/katasthma/selfie-hair-inspirations/", "https://www.google.com/maps/place/Selfie+Hair+Glyfada/@37.8601465,23.7544975,17z/data=!4m6!3m5!1s0x14a1bfd0f7654d17:0xf166a885a3677ba0!8m2!3d37.8601465!4d23.7544975"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "HairSalon", "name": "Selfie Hair Inspirations Kalloni", "image": "https://selfiehairinspirations.gr/assets/img/hero-salon-team.webp", "url": "https://selfiehairinspirations.gr/", "telephone": "+30 2253 025214", "address": {"@type": "PostalAddress", "addressLocality": "Καλλονή", "postalCode": "81107", "addressRegion": "Λέσβος", "addressCountry": "GR"}, "geo": {"@type": "GeoCoordinates", "latitude": 39.2336876, "longitude": 26.2090614}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday", "Thursday"], "opens": "09:00", "closes": "14:30"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "09:00", "closes": "15:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:00", "closes": "21:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "17:00"}], "areaServed": ["Καλλονή", "Λέσβος", "Μυτιλήνη"], "priceRange": "€€", "sameAs": ["https://www.fresha.com/el/lvp/selfie-hair-inspirations-kalloni-kalloni-Vq1nA2", "https://www.google.com/maps/place/Selfie+Hair+Inspirations+Kalloni/@39.2336876,26.2090614,17z/data=!4m6!3m5!1s0x14ba93e9c3ada96f:0xe2d726c40d05ba62!8m2!3d39.2336876!4d26.2090614"]}</script>
@@ -567,12 +625,12 @@ ul[data-hloc]:not([hidden]),.dirs[data-hloc]:not([hidden]),.ft [data-hloc]:not([
  <div class="lang" role="group" aria-label="Γλώσσα" data-en-aria-label="Language"><button type="button" data-l="el" aria-pressed="true" aria-label="Ελληνικά"><span class="flag"><svg viewBox="0 0 27 18" preserveAspectRatio="xMidYMid slice"><rect width="27" height="18" fill="#0D5EAF"/><g fill="#fff"><rect y="2" width="27" height="2"/><rect y="6" width="27" height="2"/><rect y="10" width="27" height="2"/><rect y="14" width="27" height="2"/></g><rect width="10" height="10" fill="#0D5EAF"/><rect x="4" width="2" height="10" fill="#fff"/><rect y="4" width="10" height="2" fill="#fff"/></svg></span>EL</button><button type="button" data-l="en" aria-pressed="false" aria-label="English"><span class="flag"><svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice"><clipPath id="uk"><path d="M0 0v30h60V0z"/></clipPath><g clip-path="url(#uk)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg></span>EN</button></div>
 </div></div>
 <header class="hdr"><div class="wrap">
- <a class="brand" href="#top" aria-label="Selfie Hair Inspirations — αρχική" data-en-aria-label="Selfie Hair Inspirations — home"><svg class="" viewBox="0 0 2462 1728" role="img" aria-label="Selfie Hair Inspirations"><use href="#logo"/></svg></a>
+ <a class="brand" href="index.html" aria-label="Selfie Hair Inspirations — αρχική" data-en-aria-label="Selfie Hair Inspirations — home"><svg class="" viewBox="0 0 2462 1728" role="img" aria-label="Selfie Hair Inspirations"><use href="#logo"/></svg></a>
  <nav class="nav" aria-label="Κύριο μενού" data-en-aria-label="Main menu"><a href="omada.html" data-en="THE TEAM">Η ΟΜΑΔΑ</a><a href="kourema.html" data-en="SERVICES">ΥΠΗΡΕΣΙΕΣ</a><a href="fotografies.html" data-en="PHOTOS">ΦΩΤΟΓΡΑΦΙΕΣ</a><a href="proionta.html" data-en="PRODUCTS">ΠΡΟΪΟΝΤΑ</a><a href="epikoinonia.html" aria-current=page data-en="CONTACT">ΕΠΙΚΟΙΝΩΝΙΑ</a><a class="btn" data-book href="https://www.treatwell.gr/katasthma/selfie-hair-inspirations/" target="_blank" rel="noopener" data-en="BOOK NOW">ΚΛΕΙΣΤΕ ΡΑΝΤΕΒΟΥ</a></nav>
  <button class="burger" type="button" aria-label="Μενού" data-en-aria-label="Menu" aria-expanded="false" aria-controls="drawer"><span></span></button>
 </div></header>
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Μενού" data-en-aria-label="Menu">
- <div class="top"><a class="brand" href="#top" aria-label="Selfie Hair Inspirations"><svg class="" viewBox="0 0 2462 1728" role="img" aria-label="Selfie Hair Inspirations"><use href="#logo"/></svg></a><button class="x" type="button" aria-label="Κλείσιμο μενού" data-en-aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+ <div class="top"><a class="brand" href="index.html" aria-label="Selfie Hair Inspirations"><svg class="" viewBox="0 0 2462 1728" role="img" aria-label="Selfie Hair Inspirations"><use href="#logo"/></svg></a><button class="x" type="button" aria-label="Κλείσιμο μενού" data-en-aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
  <nav><a href="index.html" data-en="Home">Αρχική</a><a href="omada.html" data-en="The Team">Η Ομάδα</a><a href="kourema.html" data-en="Services">Υπηρεσίες</a><a href="fotografies.html" data-en="Photos">Φωτογραφίες</a><a href="proionta.html" data-en="Products">Προϊόντα</a><a href="epikoinonia.html" aria-current=page data-en="Contact">Επικοινωνία</a></nav>
  <a class="btn" data-book href="https://www.treatwell.gr/katasthma/selfie-hair-inspirations/" target="_blank" rel="noopener" data-en="BOOK NOW">ΚΛΕΙΣΤΕ ΡΑΝΤΕΒΟΥ</a>
  <div class="dloc"><span data-en="Glyfada">Γλυφάδα</span> · <a href="tel:+302108983331">210 898 3331</a><br><span data-en="Kalloni, Lesvos">Καλλονή, Λέσβος</span> · <a href="tel:+302253025214">2253 025214</a></div>
@@ -618,7 +676,7 @@ ul[data-hloc]:not([hidden]),.dirs[data-hloc]:not([hidden]),.ft [data-hloc]:not([
 </main>
 <footer class="ft" id="footer">
  <div class="cols">
-  <div class="mid"><a class="brand" href="#top" aria-label="Selfie Hair Inspirations — αρχή" data-en-aria-label="Selfie Hair Inspirations — top"><svg class="" viewBox="0 0 2462 1728" role="img" aria-label="Selfie Hair Inspirations"><use href="#logo"/></svg></a>
+  <div class="mid"><a class="brand" href="index.html" aria-label="Selfie Hair Inspirations — αρχή" data-en-aria-label="Selfie Hair Inspirations — top"><svg class="" viewBox="0 0 2462 1728" role="img" aria-label="Selfie Hair Inspirations"><use href="#logo"/></svg></a>
    <div class="soc"><a href="https://www.facebook.com/selfiehairinspirations/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5H16l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H8v3h2.5V21z"/></svg></a><a href="https://www.instagram.com/selfie_hair_inspirations/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a></div>
    <small>Make your selfie better!</small></div>
   <div class="col l"><h4 data-en="CONTACT">ΕΠΙΚΟΙΝΩΝΙΑ</h4>
