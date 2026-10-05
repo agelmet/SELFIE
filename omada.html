@@ -538,87 +538,32 @@ ul[data-hloc]:not([hidden]),.dirs[data-hloc]:not([hidden]),.ft [data-hloc]:not([
 .rev-ctrl .lnks{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
 .h3{font-size:clamp(22px,1.46vw,28px);font-weight:700}
 
-/* ===== NO CROPPING anywhere (Angelo, 5 Oct 2026): every photo shown whole ===== */
-/* hero slider: frame = 16:9 (the main photo's own ratio); other slides sit whole on the dark ground */
-.hero{height:auto;aspect-ratio:1400/786;background:var(--dark)}
-.slide picture,.slide img{width:100%;height:100%;object-fit:contain}
-.slide img{transform:none!important;transition:none}
-.hero::after{background:linear-gradient(180deg,rgba(16,34,34,.10),rgba(16,34,34,0) 40%,rgba(16,34,34,.18))}
-@media (max-width:760px){
- .hero{aspect-ratio:auto;height:auto;display:flex;flex-direction:column}
- .hero .frame{position:relative;width:100%;aspect-ratio:1400/786;background:var(--dark)}
- .hero-card{position:relative;left:auto;bottom:auto;width:100%;border-radius:0}
- .hero::after{display:none}
-}
-@media (min-width:761px){.hero .frame{position:absolute;inset:0}}
-/* inner-page banners: title panel + the whole photo side by side */
-.banner{height:auto;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:stretch;background:var(--dark);isolation:auto}
-.banner::before{display:none}
-.banner picture{grid-column:2;grid-row:1;display:block;line-height:0}
-.banner img{position:static;width:100%;height:auto;object-fit:initial;z-index:auto;top:auto}
-.banner>h1,.banner>.logo-big{grid-column:1;grid-row:1;align-self:center;justify-self:center;padding:40px clamp(20px,3vw,60px)}
-.banner h1{text-shadow:none}
-@media (max-width:760px){.banner{grid-template-columns:1fr}.banner picture{grid-column:1;grid-row:1}.banner>h1,.banner>.logo-big{grid-column:1;grid-row:2;padding:26px 20px 30px}}
-/* CTA band: the whole photo with the text over it */
-.cta{height:auto;display:grid;max-width:min(1100px,calc(100% - 2 * clamp(14px,1.56vw,30px)));margin-inline:auto;border-radius:var(--rl);margin-bottom:clamp(40px,3vw,60px)}
-.cta .bg{position:relative;inset:auto;grid-area:1/1;z-index:-2;line-height:0}
-.cta .bg img{width:100%;height:auto;object-fit:initial}
-.cta::before{border-radius:inherit}
-.cta>h2,.cta>.btn{grid-area:1/1;align-self:center;justify-self:center}
-.cta>h2{transform:translateY(-34px)}
-.cta>.btn{transform:translateY(46px);margin:0}
-@media (max-width:620px){.cta>h2{font-size:26px;transform:translateY(-26px)}.cta>.btn{transform:translateY(36px)}}
-/* no hover-zoom inside frames (it hides the edges of the photo) — lift the card instead */
+/* ===== Figma-exact photo areas (Angelo, 5 Oct 2026): every photo fills its area edge to edge like the Figma;
+   each photo has its own focus point so faces and the work are never cut ===== */
 @media (hover:hover){
  .pgrid figure:hover img,.scard:hover img,.svc:hover .ph img,.jrow figure:hover img,.mason figure:hover img,.pcard:hover .ph img{transform:none}
  .pgrid figure,.jrow figure,.mason figure{transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
  .pgrid figure:hover,.jrow figure:hover,.mason figure:hover{transform:translateY(-4px);box-shadow:var(--sh-2)}
  .scard:hover{transform:translateY(-4px)}
 }
-
-@media (max-width:760px){.hero{height:auto}.hero .arr{top:50%;margin-top:-17px}.dots{top:auto;bottom:10px}.hero-card{border-radius:0;padding:24px 20px 28px}}
-
-
-/* service cards: every photo in the same 3:2 frame, shown WHOLE (portraits sit on a soft mat) so the cards stay level */
-.svc .ph{aspect-ratio:3/2;background:linear-gradient(135deg,#F5ECDD,#EFE2CC);display:flex;align-items:center;justify-content:center}
-.svc .ph img{width:100%;height:100%;object-fit:contain}
-
 .svc-grid .svc{display:flex;flex-direction:column}
 .svc-grid .svc p{flex:1}
+.svc .ph,.tcard .ph{aspect-ratio:3/2}
+.svc .ph img,.tcard .ph img{width:100%;height:100%;object-fit:cover}
+.slide img,.banner img,.cta .bg img{object-position:var(--fx,50%) var(--fy,50%)}
+.nav a.btn{padding:0 clamp(18px,1.25vw,24px)}
+.nav a.btn::after{display:none}
+@media (max-width:760px){.hero{height:auto;display:flex;flex-direction:column;background:var(--bg)}
+ .hero .frame{position:relative;height:62vw;min-height:240px}
+ .hero::after{display:none}
+ .hero .arr{top:31vw;margin-top:-17px}
+ .dots{top:auto;bottom:auto;top:calc(62vw - 22px)}
+ .hero-card{position:relative;left:auto;bottom:auto;width:100%;margin-top:-22px;border-radius:20px 20px 0 0;padding:26px 20px 28px}}
+@media (min-width:761px){.hero .frame{position:absolute;inset:0}}
 
-/* ===== Figma layout, every photo WHOLE (Angelo, 5 Oct 2026) ===== */
-/* hero = Figma: full-bleed photo, card over its bottom-left. The frame has the photo's own 16:9 shape */
-@media (min-width:761px){
- .hero{display:block;aspect-ratio:1400/786;height:auto;padding:0;background:var(--dark)}
- .hero .frame{position:absolute;inset:0;border-radius:0;box-shadow:none;aspect-ratio:auto}
- .hero-card{position:absolute;left:calc(var(--pad) - clamp(20px,2vw,38px));bottom:0;width:min(666px,calc(100% - 2 * var(--pad) + 40px));background:var(--bg);border-radius:var(--r) var(--r) 0 0;padding:clamp(28px,2.6vw,50px) clamp(20px,2vw,38px) clamp(28px,2.4vw,46px)}
- .hero .arr.l{left:clamp(14px,2.6vw,50px)}.hero .arr.r{right:clamp(14px,2.6vw,50px)}
- .dots{right:var(--pad);bottom:clamp(18px,1.6vw,30px)}
-}
-.trip{display:flex;width:100%;height:100%;align-items:flex-start;gap:0}
-.trip span{display:block;min-width:0;line-height:0}
-.trip img{width:100%;height:auto}
-/* strips: 2 whole photos side by side, same height — Figma banner / CTA shape, nothing cut */
-.strip{display:flex;width:100%;line-height:0}
-.strip .sp{display:block;min-width:0}
-.strip img{width:100%;height:auto;display:block}
-.banner{display:block;height:auto;position:relative;background:var(--dark);border-radius:var(--rl);overflow:hidden;isolation:isolate}
-.banner .strip{position:relative;z-index:-2}
-.banner::before{display:block;content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,34,34,.42),rgba(16,34,34,.58));z-index:-1}
-.banner>h1,.banner>.logo-big{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;grid-column:auto;grid-row:auto}
-.banner h1{text-shadow:0 6px 30px rgba(0,0,0,.25)}
-@media (max-width:760px){.banner>h1,.banner>.logo-big{position:absolute;padding:12px}.banner h1{font-size:34px}.banner .logo-big svg{height:84px}.banner .logo-big .by{font-size:18px}}
-.cta{display:block;max-width:none;margin:clamp(40px,3vw,60px) 0 0;border-radius:var(--rl) var(--rl) 0 0;height:auto;position:relative}
-.cta .bg{position:relative;inset:auto;z-index:-2}
-.cta>h2,.cta>.btn{position:absolute;left:50%;transform:translateX(-50%);text-align:center;width:max-content;max-width:calc(100% - 40px)}
-.cta>h2{top:40%;transform:translate(-50%,-50%)}
-.cta>.btn{top:58%;margin:0}
-@media (max-width:620px){.cta>h2{font-size:24px;top:36%}.cta>.btn{top:62%}}
-/* team & service cards = Figma 3:2 boxes; the photos ARE 3:2, so they show whole */
-.tcard .ph{aspect-ratio:3/2}
-.svc .ph{aspect-ratio:3/2;background:none}
-
-.banner>h1{display:block;inset:auto;top:50%;left:50%;transform:translate(-50%,-50%);width:max-content;max-width:90%;padding:0;text-align:center}
+.banner img{height:100%;top:0}
+.cta .bg{inset:0}
+.banner picture{display:contents}
 </style>
 <script>document.documentElement.className+=' js'</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "HairSalon", "name": "Selfie Hair Inspirations", "alternateName": "Selfie Hair Glyfada", "image": "https://selfiehairinspirations.gr/assets/img/hero-salon-team.webp", "url": "https://selfiehairinspirations.gr/", "telephone": "+30 210 898 3331", "email": "info@selfiehairinspirations.gr", "address": {"@type": "PostalAddress", "streetAddress": "Λεωφ. Δημάρχου Αγγέλου Μεταξά 39", "addressLocality": "Γλυφάδα", "postalCode": "16674", "addressRegion": "Αττική", "addressCountry": "GR"}, "geo": {"@type": "GeoCoordinates", "latitude": 37.8601465, "longitude": 23.7544975}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday", "Thursday", "Friday"], "opens": "09:00", "closes": "20:30"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Wednesday", "Saturday"], "opens": "09:00", "closes": "18:00"}], "founder": {"@type": "Person", "name": "Βασίλειος Ποσνακίδης", "alternateName": "Vasileios Posnakidis", "jobTitle": "Κομμωτής"}, "areaServed": ["Γλυφάδα", "Βούλα", "Άνω Γλυφάδα", "Ελληνικό", "Άλιμος", "Βάρη"], "priceRange": "€€", "sameAs": ["https://www.facebook.com/selfiehairinspirations/", "https://www.instagram.com/selfie_hair_inspirations/", "https://www.treatwell.gr/katasthma/selfie-hair-inspirations/", "https://www.google.com/maps/place/Selfie+Hair+Glyfada/@37.8601465,23.7544975,17z/data=!4m6!3m5!1s0x14a1bfd0f7654d17:0xf166a885a3677ba0!8m2!3d37.8601465!4d23.7544975"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "HairSalon", "name": "Selfie Hair Inspirations Kalloni", "image": "https://selfiehairinspirations.gr/assets/img/hero-salon-team.webp", "url": "https://selfiehairinspirations.gr/", "telephone": "+30 2253 025214", "address": {"@type": "PostalAddress", "addressLocality": "Καλλονή", "postalCode": "81107", "addressRegion": "Λέσβος", "addressCountry": "GR"}, "geo": {"@type": "GeoCoordinates", "latitude": 39.2336876, "longitude": 26.2090614}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday", "Thursday"], "opens": "09:00", "closes": "14:30"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "09:00", "closes": "15:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:00", "closes": "21:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "17:00"}], "areaServed": ["Καλλονή", "Λέσβος", "Μυτιλήνη"], "priceRange": "€€", "sameAs": ["https://www.fresha.com/el/lvp/selfie-hair-inspirations-kalloni-kalloni-Vq1nA2", "https://www.google.com/maps/place/Selfie+Hair+Inspirations+Kalloni/@39.2336876,26.2090614,17z/data=!4m6!3m5!1s0x14ba93e9c3ada96f:0xe2d726c40d05ba62!8m2!3d39.2336876!4d26.2090614"]}</script>
@@ -647,7 +592,7 @@ ul[data-hloc]:not([hidden]),.dirs[data-hloc]:not([hidden]),.ft [data-hloc]:not([
  <div class="dloc"><span data-en="Glyfada">Γλυφάδα</span> · <a href="tel:+302108983331">210 898 3331</a><br><span data-en="Kalloni, Lesvos">Καλλονή, Λέσβος</span> · <a href="tel:+302253025214">2253 025214</a></div>
 </div>
 <main id="main">
-<section class="banner"><div class="strip"><span class="sp" style="flex:1.3340 1 0"><img src="assets/img/team-selfie.webp" width="1270" height="952" alt="Η ομάδα του Selfie Hair Inspirations σε μια selfie" data-en-alt="The Selfie Hair Inspirations team in a selfie" fetchpriority="high"></span><span class="sp" style="flex:1.5008 1 0"><img src="assets/img/two-stylists.webp" width="941" height="627" alt="Δύο κομμώτριες του Selfie χαμογελούν" data-en-alt="Two Selfie stylists smiling"></span></div><h1 class="lc" data-en="The SELFIE Team">Η Ομάδα SELFIE</h1></section>
+<section class="banner"><picture><source media="(max-width:760px)" srcset="assets/img/team-selfie-800.webp"><img src="assets/img/team-selfie.webp" width="1270" height="952" alt="Η ομάδα του Selfie Hair Inspirations σε μια selfie" data-en-alt="The Selfie Hair Inspirations team in a selfie" fetchpriority="high" style="--fx:50%;--fy:34%"></picture><h1 class="lc" data-en="The SELFIE Team">Η Ομάδα SELFIE</h1></section>
 <section class="sec" aria-labelledby="own-h"><div class="wrap"><div class="owner">
  <div><h2 class="h2 lc" id="own-h" data-en="Vasileios Posnakidis">Βασίλειος Ποσνακίδης</h2><div class="role rv rv-up" data-en="Owner - Hair stylist">Ιδιοκτήτης - Κομμωτής</div>
   <p class="lead rv rv-up" style="--d:1" data-en="The owner of Selfie Hair Inspirations, Vasilis Posnakidis, grew up in Athens, where he studied hairdressing in 2008. He worked in many salons, but being fascinated by the profession he wanted to evolve. In 2016 he made his dream come true by creating a modern and comfortable beauty space where, together with his team, he brings out the beauty of everyone who walks in.">Ο ιδιοκτήτης του Selfie Hair Inspirations, Βασίλης Ποσνακίδης, μεγάλωσε στην Αθήνα όπου το 2008 σπούδασε κομμωτική. Εργάστηκε σε πολλά κομμωτήρια, αλλά έχοντας γοητευτεί αρκετά θέλει να το εξελίξει. Το 2016 κατάφερε να πραγματοποιήσει το όνειρό του δημιουργώντας έναν μοντέρνο και άνετο χώρο ομορφιάς, στον οποίο μαζί με την ομάδα του καταφέρνει να φέρει στο φως την ομορφιά κάθε ανθρώπου που μπαίνει στον χώρο.</p></div>
