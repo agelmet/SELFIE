@@ -578,16 +578,6 @@ ul[data-hloc]:not([hidden]),.dirs[data-hloc]:not([hidden]),.ft [data-hloc]:not([
 
 @media (max-width:760px){.hero{height:auto}.hero .arr{top:50%;margin-top:-17px}.dots{top:auto;bottom:10px}.hero-card{border-radius:0;padding:24px 20px 28px}}
 
-/* hero: headline card beside the WHOLE photo — nothing covers or crops it */
-@media (min-width:761px){
- .hero{aspect-ratio:auto;height:auto;display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);align-items:center;gap:clamp(20px,2.4vw,46px);background:var(--bg);padding:clamp(14px,1.56vw,30px) clamp(14px,1.56vw,30px) 0;overflow:visible}
- .hero::after{display:none}
- .hero .frame{position:relative;inset:auto;grid-column:2;grid-row:1;aspect-ratio:1400/786;border-radius:var(--rl);overflow:hidden;background:var(--dark);box-shadow:var(--sh-3)}
- .hero-card{position:relative;left:auto;bottom:auto;width:auto;grid-column:1;grid-row:1;background:transparent;padding:0 0 0 clamp(6px,3.6vw,70px)}
- .hero-card h1{font-size:clamp(40px,4.4vw,84px)}
- .hero .arr.l{left:16px}.hero .arr.r{right:16px}
- .dots{right:22px;bottom:18px}
-}
 
 /* service cards: every photo in the same 3:2 frame, shown WHOLE (portraits sit on a soft mat) so the cards stay level */
 .svc .ph{aspect-ratio:3/2;background:linear-gradient(135deg,#F5ECDD,#EFE2CC);display:flex;align-items:center;justify-content:center}
@@ -595,6 +585,40 @@ ul[data-hloc]:not([hidden]),.dirs[data-hloc]:not([hidden]),.ft [data-hloc]:not([
 
 .svc-grid .svc{display:flex;flex-direction:column}
 .svc-grid .svc p{flex:1}
+
+/* ===== Figma layout, every photo WHOLE (Angelo, 5 Oct 2026) ===== */
+/* hero = Figma: full-bleed photo, card over its bottom-left. The frame has the photo's own 16:9 shape */
+@media (min-width:761px){
+ .hero{display:block;aspect-ratio:1400/786;height:auto;padding:0;background:var(--dark)}
+ .hero .frame{position:absolute;inset:0;border-radius:0;box-shadow:none;aspect-ratio:auto}
+ .hero-card{position:absolute;left:calc(var(--pad) - clamp(20px,2vw,38px));bottom:0;width:min(666px,calc(100% - 2 * var(--pad) + 40px));background:var(--bg);border-radius:var(--r) var(--r) 0 0;padding:clamp(28px,2.6vw,50px) clamp(20px,2vw,38px) clamp(28px,2.4vw,46px)}
+ .hero .arr.l{left:clamp(14px,2.6vw,50px)}.hero .arr.r{right:clamp(14px,2.6vw,50px)}
+ .dots{right:var(--pad);bottom:clamp(18px,1.6vw,30px)}
+}
+.trip{display:flex;width:100%;height:100%;align-items:flex-start;gap:0}
+.trip span{display:block;min-width:0;line-height:0}
+.trip img{width:100%;height:auto}
+/* strips: 2 whole photos side by side, same height — Figma banner / CTA shape, nothing cut */
+.strip{display:flex;width:100%;line-height:0}
+.strip .sp{display:block;min-width:0}
+.strip img{width:100%;height:auto;display:block}
+.banner{display:block;height:auto;position:relative;background:var(--dark);border-radius:var(--rl);overflow:hidden;isolation:isolate}
+.banner .strip{position:relative;z-index:-2}
+.banner::before{display:block;content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,34,34,.42),rgba(16,34,34,.58));z-index:-1}
+.banner>h1,.banner>.logo-big{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;grid-column:auto;grid-row:auto}
+.banner h1{text-shadow:0 6px 30px rgba(0,0,0,.25)}
+@media (max-width:760px){.banner>h1,.banner>.logo-big{position:absolute;padding:12px}.banner h1{font-size:34px}.banner .logo-big svg{height:84px}.banner .logo-big .by{font-size:18px}}
+.cta{display:block;max-width:none;margin:clamp(40px,3vw,60px) 0 0;border-radius:var(--rl) var(--rl) 0 0;height:auto;position:relative}
+.cta .bg{position:relative;inset:auto;z-index:-2}
+.cta>h2,.cta>.btn{position:absolute;left:50%;transform:translateX(-50%);text-align:center;width:max-content;max-width:calc(100% - 40px)}
+.cta>h2{top:40%;transform:translate(-50%,-50%)}
+.cta>.btn{top:58%;margin:0}
+@media (max-width:620px){.cta>h2{font-size:24px;top:36%}.cta>.btn{top:62%}}
+/* team & service cards = Figma 3:2 boxes; the photos ARE 3:2, so they show whole */
+.tcard .ph{aspect-ratio:3/2}
+.svc .ph{aspect-ratio:3/2;background:none}
+
+.banner>h1{display:block;inset:auto;top:50%;left:50%;transform:translate(-50%,-50%);width:max-content;max-width:90%;padding:0;text-align:center}
 </style>
 <script>document.documentElement.className+=' js'</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "HairSalon", "name": "Selfie Hair Inspirations", "alternateName": "Selfie Hair Glyfada", "image": "https://selfiehairinspirations.gr/assets/img/hero-salon-team.webp", "url": "https://selfiehairinspirations.gr/", "telephone": "+30 210 898 3331", "email": "info@selfiehairinspirations.gr", "address": {"@type": "PostalAddress", "streetAddress": "Λεωφ. Δημάρχου Αγγέλου Μεταξά 39", "addressLocality": "Γλυφάδα", "postalCode": "16674", "addressRegion": "Αττική", "addressCountry": "GR"}, "geo": {"@type": "GeoCoordinates", "latitude": 37.8601465, "longitude": 23.7544975}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday", "Thursday", "Friday"], "opens": "09:00", "closes": "20:30"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Wednesday", "Saturday"], "opens": "09:00", "closes": "18:00"}], "founder": {"@type": "Person", "name": "Βασίλειος Ποσνακίδης", "alternateName": "Vasileios Posnakidis", "jobTitle": "Κομμωτής"}, "areaServed": ["Γλυφάδα", "Βούλα", "Άνω Γλυφάδα", "Ελληνικό", "Άλιμος", "Βάρη"], "priceRange": "€€", "sameAs": ["https://www.facebook.com/selfiehairinspirations/", "https://www.instagram.com/selfie_hair_inspirations/", "https://www.treatwell.gr/katasthma/selfie-hair-inspirations/", "https://www.google.com/maps/place/Selfie+Hair+Glyfada/@37.8601465,23.7544975,17z/data=!4m6!3m5!1s0x14a1bfd0f7654d17:0xf166a885a3677ba0!8m2!3d37.8601465!4d23.7544975"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "HairSalon", "name": "Selfie Hair Inspirations Kalloni", "image": "https://selfiehairinspirations.gr/assets/img/hero-salon-team.webp", "url": "https://selfiehairinspirations.gr/", "telephone": "+30 2253 025214", "address": {"@type": "PostalAddress", "addressLocality": "Καλλονή", "postalCode": "81107", "addressRegion": "Λέσβος", "addressCountry": "GR"}, "geo": {"@type": "GeoCoordinates", "latitude": 39.2336876, "longitude": 26.2090614}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday", "Thursday"], "opens": "09:00", "closes": "14:30"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "09:00", "closes": "15:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:00", "closes": "21:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "17:00"}], "areaServed": ["Καλλονή", "Λέσβος", "Μυτιλήνη"], "priceRange": "€€", "sameAs": ["https://www.fresha.com/el/lvp/selfie-hair-inspirations-kalloni-kalloni-Vq1nA2", "https://www.google.com/maps/place/Selfie+Hair+Inspirations+Kalloni/@39.2336876,26.2090614,17z/data=!4m6!3m5!1s0x14ba93e9c3ada96f:0xe2d726c40d05ba62!8m2!3d39.2336876!4d26.2090614"]}</script>
@@ -703,13 +727,13 @@ if(dr){$('.burger').addEventListener('click',function(){drawer(true)});$('.x',dr
 var hero=$('.hero');
 if(hero){var sl=$$('.slide',hero),dots=$$('.dots button',hero),cur=0,tm;
  function go(n){sl[cur].classList.remove('on');dots[cur]&&dots[cur].classList.remove('on');cur=(n+sl.length)%sl.length;
-  var im=$('img',sl[cur]);if(im&&im.dataset.src){im.src=im.dataset.src;im.removeAttribute('data-src')}
+  $$('img[data-src]',sl[cur]).forEach(function(im){im.src=im.dataset.src;im.removeAttribute('data-src')});
   sl[cur].classList.add('on');if(dots[cur]){dots[cur].classList.remove('on');void dots[cur].offsetWidth;dots[cur].classList.add('on')}plan()}
  function plan(){clearTimeout(tm);if(!RM){tm=setTimeout(function(){if(!d.hidden)go(cur+1);else plan()},7000);setTimeout(function(){pre(cur+1)},5000)}}
  $('.arr.l',hero).addEventListener('click',function(){go(cur-1)});$('.arr.r',hero).addEventListener('click',function(){go(cur+1)});
  dots.forEach(function(b,i){b.addEventListener('click',function(){go(i)})});
  var sx=null;hero.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});hero.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));sx=null});
- function pre(n){var i=$('img',sl[n%sl.length]);if(i&&i.dataset.src){var p=new Image();p.src=i.dataset.src}}
+ function pre(n){$$('img[data-src]',sl[n%sl.length]).forEach(function(i){var p=new Image();p.src=i.dataset.src})}
  if(dots[0])dots[0].classList.add('on');plan();
 }
 function ready(){html.classList.add('ready')}

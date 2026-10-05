@@ -578,16 +578,6 @@ ul[data-hloc]:not([hidden]),.dirs[data-hloc]:not([hidden]),.ft [data-hloc]:not([
 
 @media (max-width:760px){.hero{height:auto}.hero .arr{top:50%;margin-top:-17px}.dots{top:auto;bottom:10px}.hero-card{border-radius:0;padding:24px 20px 28px}}
 
-/* hero: headline card beside the WHOLE photo — nothing covers or crops it */
-@media (min-width:761px){
- .hero{aspect-ratio:auto;height:auto;display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);align-items:center;gap:clamp(20px,2.4vw,46px);background:var(--bg);padding:clamp(14px,1.56vw,30px) clamp(14px,1.56vw,30px) 0;overflow:visible}
- .hero::after{display:none}
- .hero .frame{position:relative;inset:auto;grid-column:2;grid-row:1;aspect-ratio:1400/786;border-radius:var(--rl);overflow:hidden;background:var(--dark);box-shadow:var(--sh-3)}
- .hero-card{position:relative;left:auto;bottom:auto;width:auto;grid-column:1;grid-row:1;background:transparent;padding:0 0 0 clamp(6px,3.6vw,70px)}
- .hero-card h1{font-size:clamp(40px,4.4vw,84px)}
- .hero .arr.l{left:16px}.hero .arr.r{right:16px}
- .dots{right:22px;bottom:18px}
-}
 
 /* service cards: every photo in the same 3:2 frame, shown WHOLE (portraits sit on a soft mat) so the cards stay level */
 .svc .ph{aspect-ratio:3/2;background:linear-gradient(135deg,#F5ECDD,#EFE2CC);display:flex;align-items:center;justify-content:center}
@@ -595,6 +585,40 @@ ul[data-hloc]:not([hidden]),.dirs[data-hloc]:not([hidden]),.ft [data-hloc]:not([
 
 .svc-grid .svc{display:flex;flex-direction:column}
 .svc-grid .svc p{flex:1}
+
+/* ===== Figma layout, every photo WHOLE (Angelo, 5 Oct 2026) ===== */
+/* hero = Figma: full-bleed photo, card over its bottom-left. The frame has the photo's own 16:9 shape */
+@media (min-width:761px){
+ .hero{display:block;aspect-ratio:1400/786;height:auto;padding:0;background:var(--dark)}
+ .hero .frame{position:absolute;inset:0;border-radius:0;box-shadow:none;aspect-ratio:auto}
+ .hero-card{position:absolute;left:calc(var(--pad) - clamp(20px,2vw,38px));bottom:0;width:min(666px,calc(100% - 2 * var(--pad) + 40px));background:var(--bg);border-radius:var(--r) var(--r) 0 0;padding:clamp(28px,2.6vw,50px) clamp(20px,2vw,38px) clamp(28px,2.4vw,46px)}
+ .hero .arr.l{left:clamp(14px,2.6vw,50px)}.hero .arr.r{right:clamp(14px,2.6vw,50px)}
+ .dots{right:var(--pad);bottom:clamp(18px,1.6vw,30px)}
+}
+.trip{display:flex;width:100%;height:100%;align-items:flex-start;gap:0}
+.trip span{display:block;min-width:0;line-height:0}
+.trip img{width:100%;height:auto}
+/* strips: 2 whole photos side by side, same height — Figma banner / CTA shape, nothing cut */
+.strip{display:flex;width:100%;line-height:0}
+.strip .sp{display:block;min-width:0}
+.strip img{width:100%;height:auto;display:block}
+.banner{display:block;height:auto;position:relative;background:var(--dark);border-radius:var(--rl);overflow:hidden;isolation:isolate}
+.banner .strip{position:relative;z-index:-2}
+.banner::before{display:block;content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,34,34,.42),rgba(16,34,34,.58));z-index:-1}
+.banner>h1,.banner>.logo-big{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;grid-column:auto;grid-row:auto}
+.banner h1{text-shadow:0 6px 30px rgba(0,0,0,.25)}
+@media (max-width:760px){.banner>h1,.banner>.logo-big{position:absolute;padding:12px}.banner h1{font-size:34px}.banner .logo-big svg{height:84px}.banner .logo-big .by{font-size:18px}}
+.cta{display:block;max-width:none;margin:clamp(40px,3vw,60px) 0 0;border-radius:var(--rl) var(--rl) 0 0;height:auto;position:relative}
+.cta .bg{position:relative;inset:auto;z-index:-2}
+.cta>h2,.cta>.btn{position:absolute;left:50%;transform:translateX(-50%);text-align:center;width:max-content;max-width:calc(100% - 40px)}
+.cta>h2{top:40%;transform:translate(-50%,-50%)}
+.cta>.btn{top:58%;margin:0}
+@media (max-width:620px){.cta>h2{font-size:24px;top:36%}.cta>.btn{top:62%}}
+/* team & service cards = Figma 3:2 boxes; the photos ARE 3:2, so they show whole */
+.tcard .ph{aspect-ratio:3/2}
+.svc .ph{aspect-ratio:3/2;background:none}
+
+.banner>h1{display:block;inset:auto;top:50%;left:50%;transform:translate(-50%,-50%);width:max-content;max-width:90%;padding:0;text-align:center}
 </style>
 <script>document.documentElement.className+=' js'</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "HairSalon", "name": "Selfie Hair Inspirations", "alternateName": "Selfie Hair Glyfada", "image": "https://selfiehairinspirations.gr/assets/img/hero-salon-team.webp", "url": "https://selfiehairinspirations.gr/", "telephone": "+30 210 898 3331", "email": "info@selfiehairinspirations.gr", "address": {"@type": "PostalAddress", "streetAddress": "Λεωφ. Δημάρχου Αγγέλου Μεταξά 39", "addressLocality": "Γλυφάδα", "postalCode": "16674", "addressRegion": "Αττική", "addressCountry": "GR"}, "geo": {"@type": "GeoCoordinates", "latitude": 37.8601465, "longitude": 23.7544975}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday", "Thursday", "Friday"], "opens": "09:00", "closes": "20:30"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Wednesday", "Saturday"], "opens": "09:00", "closes": "18:00"}], "founder": {"@type": "Person", "name": "Βασίλειος Ποσνακίδης", "alternateName": "Vasileios Posnakidis", "jobTitle": "Κομμωτής"}, "areaServed": ["Γλυφάδα", "Βούλα", "Άνω Γλυφάδα", "Ελληνικό", "Άλιμος", "Βάρη"], "priceRange": "€€", "sameAs": ["https://www.facebook.com/selfiehairinspirations/", "https://www.instagram.com/selfie_hair_inspirations/", "https://www.treatwell.gr/katasthma/selfie-hair-inspirations/", "https://www.google.com/maps/place/Selfie+Hair+Glyfada/@37.8601465,23.7544975,17z/data=!4m6!3m5!1s0x14a1bfd0f7654d17:0xf166a885a3677ba0!8m2!3d37.8601465!4d23.7544975"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "HairSalon", "name": "Selfie Hair Inspirations Kalloni", "image": "https://selfiehairinspirations.gr/assets/img/hero-salon-team.webp", "url": "https://selfiehairinspirations.gr/", "telephone": "+30 2253 025214", "address": {"@type": "PostalAddress", "addressLocality": "Καλλονή", "postalCode": "81107", "addressRegion": "Λέσβος", "addressCountry": "GR"}, "geo": {"@type": "GeoCoordinates", "latitude": 39.2336876, "longitude": 26.2090614}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday", "Thursday"], "opens": "09:00", "closes": "14:30"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "09:00", "closes": "15:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:00", "closes": "21:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "17:00"}], "areaServed": ["Καλλονή", "Λέσβος", "Μυτιλήνη"], "priceRange": "€€", "sameAs": ["https://www.fresha.com/el/lvp/selfie-hair-inspirations-kalloni-kalloni-Vq1nA2", "https://www.google.com/maps/place/Selfie+Hair+Inspirations+Kalloni/@39.2336876,26.2090614,17z/data=!4m6!3m5!1s0x14ba93e9c3ada96f:0xe2d726c40d05ba62!8m2!3d39.2336876!4d26.2090614"]}</script>
@@ -623,7 +647,7 @@ ul[data-hloc]:not([hidden]),.dirs[data-hloc]:not([hidden]),.ft [data-hloc]:not([
  <div class="dloc"><span data-en="Glyfada">Γλυφάδα</span> · <a href="tel:+302108983331">210 898 3331</a><br><span data-en="Kalloni, Lesvos">Καλλονή, Λέσβος</span> · <a href="tel:+302253025214">2253 025214</a></div>
 </div>
 <main id="main">
-<section class="banner"><picture><source media="(max-width:760px)" srcset="assets/img/colorbar-wall-800.webp"><img src="assets/img/colorbar-wall.webp" width="942" height="806" alt="Το colour bar του Selfie με βαφές και επαγγελματικά προϊόντα" data-en-alt="The Selfie colour bar with colours and professional products" fetchpriority="high"></picture><h1 class="lc" data-en="Products">Προϊόντα</h1></section>
+<section class="banner"><div class="strip"><span class="sp" style="flex:1.1687 1 0"><img src="assets/img/colorbar-wall.webp" width="942" height="806" alt="Το colour bar του Selfie με βαφές και επαγγελματικά προϊόντα" data-en-alt="The Selfie colour bar with colours and professional products" fetchpriority="high"></span><span class="sp" style="flex:1.5011 1 0"><img src="assets/img/salon-products-shelf.webp" width="1345" height="896" alt="Ράφι με επαγγελματικά προϊόντα L’Oréal" data-en-alt="A shelf of L’Oréal professional products"></span></div><h1 class="lc" data-en="Products">Προϊόντα</h1></section>
 <div class="wrap"><div class="filters pfil" role="group" aria-label="Φίλτρα" data-en-aria-label="Filters" style="margin-top:clamp(40px,3.6vw,70px)"><button type="button" data-f="all" aria-pressed="true" data-en="ALL">ΟΛΑ</button><button type="button" data-f="color" aria-pressed="false" data-en="COLOUR CARE">ΠΡΟΣΤΑΣΙΑ ΧΡΩΜΑΤΟΣ</button><button type="button" data-f="care" aria-pressed="false" data-en="TREATMENTS">ΘΕΡΑΠΕΙΕΣ</button><button type="button" data-f="repair" aria-pressed="false" data-en="HYDRATION &amp; SHINE">ΕΝΥΔΑΤΩΣΗ & ΛΑΜΨΗ</button></div></div>
 <section class="sec" style="padding-top:clamp(10px,1vw,20px)" aria-label="Προϊόντα" data-en-aria-label="Products"><div class="wrap"><div class="g3 pgrid-p"><article class="pcard rv rv-deal" style="--d:0;--rot:-2deg" data-cat="color"><div class="ph"><img src="assets/img/prod-antidot.webp" width="807" height="538" alt="Σειρά προϊόντων Alfaparf Semi di Lino" data-en-alt="Alfaparf Semi di Lino products" loading="lazy" decoding="async" data-lb></div><div class="bd"><h3>Antidot</h3><p data-en="A product added into the colour that prevents stinging, redness and irritation during technical services. It works with every colour and does not change the result.">Εξατομικευμένο προϊόν που εισχωρείται μέσα στη βαφή και αποτρέπει το τσούξιμο, τις κοκκινίλες και τους ερεθισμούς κατά τη διάρκεια των τεχνικών εργασιών. Χρησιμοποιείται σε όλες τις βαφές και δεν αλλοιώνει το αποτέλεσμα.</p><div class="pr"><span data-en="Price">Τιμή</span> 5€</div></div></article><article class="pcard rv rv-deal" style="--d:1;--rot:0deg" data-cat="care"><div class="ph"><img src="assets/img/prod-powermix.webp" width="807" height="538" alt="Προϊόντα CHI και BioSilk στο ράφι" data-en-alt="CHI and BioSilk products on the shelf" loading="lazy" decoding="async" data-lb></div><div class="bd"><h3>Power Mix</h3><p data-en="A treatment with professional products, such as masks mixed just before use, aimed at keeping colour vivid, repairing and adding shine while fully protecting fragile hair.">Θεραπεία με επαγγελματικά προϊόντα, όπως μάσκες που αναμειγνύονται πριν την εφαρμογή και στοχεύουν στη διατήρηση και ζωντάνια του χρώματος, στην επανόρθωση και λάμψη, προστατεύοντας τα εύθραυστα μαλλιά στο 100%.</p><div class="pr"><span data-en="Price">Τιμή</span> 5€</div></div></article><article class="pcard rv rv-deal" style="--d:2;--rot:2deg" data-cat="care"><div class="ph"><img src="assets/img/prod-balance-scalp.webp" width="627" height="943" alt="Συσκευασίες L’Oréal Magic Repair, Galactic Force, Mythic Oil, Cosmic Blonde" data-en-alt="L’Oréal Magic Repair, Galactic Force, Mythic Oil and Cosmic Blonde boxes" loading="lazy" decoding="async" data-lb></div><div class="bd"><h3>Balance Scalp</h3><p data-en="One of the most special treatments offered in our salon, for a sensitive scalp and its protection. It soothes the skin from itching and irritation.">Μια από τις πιο ιδιαίτερες θεραπείες, που παρέχεται στο κομμωτήριό μας, αφορά το ευαίσθητο δέρμα της κεφαλής και την προστασία του. Η εν λόγω θεραπεία ανακουφίζει το δέρμα από τον κνησμό και τη φαγούρα.</p><div class="pr"><span data-en="Price">Τιμή</span> 10€</div></div></article><article class="pcard rv rv-deal" style="--d:0;--rot:-2deg" data-cat="repair"><div class="ph"><img src="assets/img/prod-wella-liquid.webp" width="627" height="943" alt="Σέρουμ L’Oréal Serie Expert Absolut Repair" data-en-alt="L’Oréal Serie Expert Absolut Repair serum" loading="lazy" decoding="async" data-lb></div><div class="bd"><h3>Wella Liquid Hair</h3><p data-en="A product that cares for damaged hair. Protection from harsh environmental conditions, for shine and hydration that last.">Ένα προϊόν που φροντίζει τα ταλαιπωρημένα μαλλιά. Προστασία από τις αντίξοες περιβαλλοντικές συνθήκες, με στόχο την λάμψη κι ενυδάτωση, σε βάθος χρόνου.</p><div class="pr"><span data-en="Price">Τιμή</span> 10€</div></div></article><article class="pcard rv rv-deal" style="--d:1;--rot:0deg" data-cat="repair"><div class="ph"><img src="assets/img/prod-nutritive-oil.webp" width="666" height="890" alt="Σειρά L’Oréal Source Essentielle" data-en-alt="L’Oréal Source Essentielle range" loading="lazy" decoding="async" data-lb></div><div class="bd"><h3>Nutritive Essential Oil</h3><p data-en="A hydrating oil that restores dry hair, made with Shine Fix Complex for extra shine and Nutri-Sugars for maximum moisture.">Ενυδατικό λάδι για την επανόρθωση των ξηρών μαλλιών, σχεδιασμένο με Shine Fix Complex για επιπρόσθετη λάμψη και Nutri – Sugars για τη μέγιστη υγρασία στην τρίχα.</p><div class="pr"><span data-en="Price">Τιμή</span> 10€</div></div></article><article class="pcard rv rv-deal" style="--d:2;--rot:2deg" data-cat="color"><div class="ph"><img src="assets/img/prod-color-save.webp" width="628" height="921" alt="Λάδι L’Oréal Source Essentielle" data-en-alt="L’Oréal Source Essentielle oil" loading="lazy" decoding="async" data-lb></div><div class="bd"><h3>Color Save</h3><p data-en="An essential product to lock in colour, add shine and hydrate, so every colour keeps its vivid tone for longer.">Απαραίτητο προϊόν για το κλείδωμα του χρώματος, τη λάμψη και την ενυδάτωση με στόχο τη μακρά διατήρηση του ζωντανού τόνου της κάθε βαφής.</p><div class="pr"><span data-en="Price">Τιμή</span> 5€</div></div></article></div></div></section>
 </main>
@@ -701,13 +725,13 @@ if(dr){$('.burger').addEventListener('click',function(){drawer(true)});$('.x',dr
 var hero=$('.hero');
 if(hero){var sl=$$('.slide',hero),dots=$$('.dots button',hero),cur=0,tm;
  function go(n){sl[cur].classList.remove('on');dots[cur]&&dots[cur].classList.remove('on');cur=(n+sl.length)%sl.length;
-  var im=$('img',sl[cur]);if(im&&im.dataset.src){im.src=im.dataset.src;im.removeAttribute('data-src')}
+  $$('img[data-src]',sl[cur]).forEach(function(im){im.src=im.dataset.src;im.removeAttribute('data-src')});
   sl[cur].classList.add('on');if(dots[cur]){dots[cur].classList.remove('on');void dots[cur].offsetWidth;dots[cur].classList.add('on')}plan()}
  function plan(){clearTimeout(tm);if(!RM){tm=setTimeout(function(){if(!d.hidden)go(cur+1);else plan()},7000);setTimeout(function(){pre(cur+1)},5000)}}
  $('.arr.l',hero).addEventListener('click',function(){go(cur-1)});$('.arr.r',hero).addEventListener('click',function(){go(cur+1)});
  dots.forEach(function(b,i){b.addEventListener('click',function(){go(i)})});
  var sx=null;hero.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});hero.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));sx=null});
- function pre(n){var i=$('img',sl[n%sl.length]);if(i&&i.dataset.src){var p=new Image();p.src=i.dataset.src}}
+ function pre(n){$$('img[data-src]',sl[n%sl.length]).forEach(function(i){var p=new Image();p.src=i.dataset.src})}
  if(dots[0])dots[0].classList.add('on');plan();
 }
 function ready(){html.classList.add('ready')}
