@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://selfiehairinspirations.gr/sitemap.xml
+Sitemap: https://selfiehair.gr/sitemap.xml
