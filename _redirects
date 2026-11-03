@@ -1,0 +1,5 @@
+# selfie-hair.gr (old domain) -> selfiehair.gr, permanent
+https://selfie-hair.gr/*      https://selfiehair.gr/:splat  301!
+http://selfie-hair.gr/*       https://selfiehair.gr/:splat  301!
+https://www.selfie-hair.gr/*  https://selfiehair.gr/:splat  301!
+http://www.selfie-hair.gr/*   https://selfiehair.gr/:splat  301!
